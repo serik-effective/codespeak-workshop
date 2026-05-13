@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CodeSpeak Workshop: инструкция</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand brand-button" type="button" data-secret-trigger aria-label="CodeSpeak Workshop">CodeSpeak Workshop</button>
+      <div class="topbar-picker" aria-label="Настройки инструкции">
+        <label>
+          <span>Платформа</span>
+          <select data-select="target">
+            <option value="Web">Web</option>
+            <option value="Android">Android</option>
+            <option value="Flutter">Flutter</option>
+            <option value="iOS">iOS</option>
+          </select>
+        </label>
+        <label>
+          <span>ОС</span>
+          <select data-select="os">
+            <option value="">Выберите</option>
+            <option value="macOS">macOS</option>
+            <option value="Linux">Linux</option>
+            <option value="Windows">Windows</option>
+          </select>
+        </label>
+        <label>
+          <span>Режим</span>
+          <select data-select="mode">
+            <option value="workshop">Мастер-класс</option>
+            <option value="solo">Самостоятельно</option>
+          </select>
+        </label>
+      </div>
+      <nav class="topbar-links" aria-label="Быстрые ссылки">
+        <a href="slides/">Слайды</a>
+        <a href="#behind" data-workshop-only>Если отстали</a>
+      </nav>
+    </header>
+
+    <div class="page-shell">
+      <aside class="side-nav" aria-label="Навигация по инструкции">
+        <h2>Шаги</h2>
+        <span class="nav-parent">0. Подготовка</span>
+        <a class="nav-child" href="#install-unix" data-os-nav="macOS Linux">Установка</a>
+        <a class="nav-child" href="#install-windows" data-os-nav="Windows">Установка</a>
+        <a class="nav-child" href="#login">Логин</a>
+        <a class="nav-child" href="#download">Файлы</a>
+        <a href="#first-app">1. Первое приложение</a>
+        <a href="#search">2. Фича через спеку</a>
+        <a href="#takeover">3. Takeover</a>
+        <a href="#behind" data-workshop-only>Если отстали</a>
+        <a href="#glossary">Глоссарий</a>
+        <a href="#troubleshooting">Проблемы</a>
+        <a class="is-hidden" href="#secret" data-secret-nav>Секретный пункт</a>
+        <a href="#final">Финал</a>
+      </aside>
+
+      <main class="content">
+        <section class="hero">
+          <p class="eyebrow">Публичная инструкция</p>
+          <h1>CodeSpeak Workshop: инструкция</h1>
+          <p class="lead">За час мы соберем маленькое приложение из спеки, запустим его, изменим поведение через спецификацию и увидим главный цикл: intent -> build -> проверка результата.</p>
+        </section>
+
+        <p class="callout compact-callout" data-workshop-only>План Б: если отстали, переключайтесь на Web-трек.</p>
+
+        <section class="card" id="install-unix" data-os-section="macOS Linux">
+          <span class="step-label">Шаг 0 · macOS / Linux</span>
+          <h2>Установка для macOS / Linux</h2>
+          <p>Откройте терминал и выполните команды по порядку.</p>
+          <pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+          <p>Нормальный результат выглядит примерно так. Версия и название платформы могут отличаться.</p>
+          <pre class="output-block"><code>downloading uv 0.11.13 aarch64-apple-darwin
+installing to /Users/sbeysenov/.local/bin
+  uv
+  uvx
+everything's installed!</code></pre>
+          <pre><code>uv --version</code></pre>
+          <pre class="output-block"><code>uv 0.11.13 (4512a3931 2026-05-10 aarch64-apple-darwin)</code></pre>
+          <pre><code>uv tool install codespeak-cli</code></pre>
+          <p>После `uv tool install codespeak-cli` нормальный вывод может быть длинным. Главное, чтобы в конце было примерно так:</p>
+          <pre class="output-block"><code>Resolved 37 packages in 1.69s
+Prepared 1 package in 503ms
+Installed 37 packages in 39ms
+ + codespeak-cli==0.4.1
+ + codespeak-shared==0.4.1
+ + textual==8.2.3
+Installed 2 executables: codespeak, codespeak-cli</code></pre>
+          <pre><code>codespeak --version</code></pre>
+          <pre class="output-block"><code>CodeSpeak CLI 0.4.1</code></pre>
+          <p>Если команда не найдена, перезапустите терминал или смотрите раздел «Известные проблемы» ниже.</p>
+        </section>
+
+        <section class="card" id="install-windows" data-os-section="Windows">
+          <span class="step-label">Шаг 0 · Windows</span>
+          <h2>Установка для Windows</h2>
+          <p>Основной путь для Windows на мастер-классе — через WSL.</p>
+          <ol>
+            <li>Откройте PowerShell от имени администратора.</li>
+            <li>Установите WSL.</li>
+          </ol>
+          <pre><code>wsl --install Ubuntu</code></pre>
+          <ol start="3">
+            <li>Перезагрузите компьютер, если система попросит.</li>
+            <li>Откройте Ubuntu.</li>
+            <li>Выполните команды как для Linux.</li>
+          </ol>
+          <pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+          <p>После установки `uv` вы можете увидеть примерно такой вывод. Версия, путь и название платформы могут отличаться.</p>
+          <pre class="output-block"><code>downloading uv 0.11.13 x86_64-unknown-linux-gnu
+installing to /home/username/.local/bin
+  uv
+  uvx
+everything's installed!</code></pre>
+          <pre><code>uv --version</code></pre>
+          <pre class="output-block"><code>uv 0.11.13 (4512a3931 2026-05-10 x86_64-unknown-linux-gnu)</code></pre>
+          <pre><code>uv tool install codespeak-cli</code></pre>
+          <p>После `uv tool install codespeak-cli` нормальный вывод может быть длинным. Главное, чтобы в конце было примерно так:</p>
+          <pre class="output-block"><code>Resolved 37 packages in 1.69s
+Prepared 1 package in 503ms
+Installed 37 packages in 39ms
+ + codespeak-cli==0.4.1
+ + codespeak-shared==0.4.1
+ + textual==8.2.3
+Installed 2 executables: codespeak, codespeak-cli</code></pre>
+          <pre><code>codespeak --version</code></pre>
+          <pre class="output-block"><code>CodeSpeak CLI 0.4.1</code></pre>
+          <p>Проверка путей:</p>
+          <pre><code>which uv</code></pre>
+          <pre><code>which codespeak</code></pre>
+          <p class="callout">Если вы на Windows и WSL не установлен заранее, установка может занять слишком много времени. В этом случае переключайтесь на Web-трек или повторите установку после мастер-класса.</p>
+        </section>
+
+        <section class="card" id="login">
+          <span class="step-label">Шаг 0 · Логин</span>
+          <h2>Логин в CodeSpeak</h2>
+          <div data-mode-section="workshop">
+            <p>Для конференции используем временный демологин. Он работает только во время мастер-класса.</p>
+            <p>Если CodeSpeak уже был установлен и вы раньше логинились, сначала удалите старый токен:</p>
+            <pre><code>rm -f ~/.codespeak/token.json</code></pre>
+            <p>Если CodeSpeak ставится впервые, этот шаг можно пропустить.</p>
+            <pre><code>CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak login</code></pre>
+            <pre class="output-block"><code>Starting direct login...
+
+Please enter your email address
+Email: mobius@beys.tech
+Generating authentication token...
+Saving authentication token...
+
+✓ Authentication successful!
+Authenticated as: mobius@beys.tech
+Token saved to ~/.codespeak/token.json
+
+You can now use CodeSpeak commands that require authentication.</code></pre>
+            <p class="callout">Если переменная окружения не подхватывается, добавляйте `CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21` прямо перед каждой командой `codespeak`.</p>
+          </div>
+          <div class="is-hidden" data-mode-section="solo">
+            <p>Для самостоятельного прохождения нужен личный API key. Демо-логин конференции работает только во время мастер-класса.</p>
+            <h3>Основной вариант — Anthropic</h3>
+            <p>Создайте ключ в <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">Claude Console</a> и подключите его в текущем терминале:</p>
+            <pre><code>export ANTHROPIC_API_KEY="sk-ant-..."</code></pre>
+            <pre><code>test -n "$ANTHROPIC_API_KEY" && echo "ANTHROPIC_API_KEY is set"</code></pre>
+            <pre><code>codespeak login</code></pre>
+            <p class="callout">Не добавляйте API key в репозиторий, <code>.spec.md</code>, <code>AGENTS.md</code>, README или скриншоты. Не выводите сам ключ через <code>echo</code> на общем экране.</p>
+
+            <h3>Альтернативы Anthropic API key</h3>
+            <p>CodeSpeak также поддерживает Anthropic-compatible провайдеров в экспериментальном режиме. В этом случае в <code>ANTHROPIC_API_KEY</code> указывается ключ выбранного провайдера, а в <code>ANTHROPIC_BASE_URL</code> — его endpoint.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Провайдер</th>
+                    <th><code>ANTHROPIC_BASE_URL</code></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="https://z.ai" target="_blank" rel="noopener">Z.ai</a></td>
+                    <td><code>https://api.z.ai/api/anthropic</code></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://moonshot.ai" target="_blank" rel="noopener">Moonshot AI</a></td>
+                    <td><code>https://api.moonshot.ai/anthropic</code></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://minimax.io" target="_blank" rel="noopener">MiniMax</a></td>
+                    <td><code>https://api.minimax.io/anthropic</code></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://deepseek.com" target="_blank" rel="noopener">DeepSeek</a></td>
+                    <td><code>https://api.deepseek.com/anthropic</code></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://www.alibabacloud.com" target="_blank" rel="noopener">Alibaba Cloud / DashScope</a></td>
+                    <td><code>https://dashscope-intl.aliyuncs.com/apps/anthropic</code></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a></td>
+                    <td><code>https://openrouter.ai/api</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Пример для OpenRouter:</p>
+            <pre><code>export ANTHROPIC_BASE_URL="https://openrouter.ai/api"</code></pre>
+            <pre><code>export ANTHROPIC_API_KEY="your-openrouter-api-key"</code></pre>
+            <pre><code>codespeak login</code></pre>
+            <p class="callout">Если используете обычный Anthropic API key, <code>ANTHROPIC_BASE_URL</code> не нужен. Задавайте его только для альтернативного провайдера или прокси.</p>
+            <p>Подробности: <a href="https://codespeak.dev/docs/reference/model-selection" target="_blank" rel="noopener">CodeSpeak Model selection</a>.</p>
+          </div>
+        </section>
+
+        <section class="card" id="download">
+          <span class="step-label">Шаг 0 · Скачивание файлов</span>
+          <h2>Получить стартовые файлы</h2>
+          <h3>Вариант А — через git clone</h3>
+          <pre><code>git clone https://github.com/serik-effective/codespeak-workshop</code></pre>
+          <p>В папку платформы перейдем на следующем шаге.</p>
+          <h3>Вариант Б — скачать отдельные файлы</h3>
+          <ul class="file-list" data-platform-files="Web">
+            <li><a href="workshop/web/geese.spec.md" download>web/geese.spec.md</a></li>
+          </ul>
+          <ul class="file-list" data-platform-files="Android">
+            <li><a href="workshop/android/AGENTS.md" download>android/AGENTS.md</a></li>
+            <li><a href="workshop/android/geese.android.spec.md" download>android/geese.android.spec.md</a></li>
+          </ul>
+          <ul class="file-list" data-platform-files="Flutter">
+            <li><a href="workshop/flutter/AGENTS.md" download>flutter/AGENTS.md</a></li>
+            <li><a href="workshop/flutter/geese.flutter.spec.md" download>flutter/geese.flutter.spec.md</a></li>
+          </ul>
+          <ul class="file-list" data-platform-files="iOS">
+            <li><a href="workshop/ios/AGENTS.md" download>ios/AGENTS.md</a></li>
+            <li><a href="workshop/ios/geese.ios.spec.md" download>ios/geese.ios.spec.md</a></li>
+          </ul>
+          <p data-platform-file-note>Если скачиваете руками, сохраните `geese.spec.md` в папку проекта.</p>
+        </section>
+
+        <section class="card" id="first-app">
+          <span class="step-label">Шаг 1 · Первое приложение</span>
+          <h2>Собираем Funny Geese</h2>
+          <p>Если вы клонировали репозиторий, перейдите в папку своей платформы. Если скачали файлы вручную, откройте папку, куда вы их сохранили.</p>
+          <pre><code data-platform-cd>cd codespeak-workshop/workshop/web</code></pre>
+          <pre><code>codespeak init</code></pre>
+          <pre><code data-platform-build>codespeak build geese.spec.md</code></pre>
+          <div data-platform-run="Web">
+            <p>Для Web CodeSpeak должен создать простую HTML/JS-страницу. Откройте сгенерированный HTML-файл напрямую в браузере.</p>
+          </div>
+          <div class="is-hidden" data-platform-run="Android">
+            <p>Для Android откройте проект в Android Studio, выберите эмулятор или устройство и нажмите Run. Если CodeSpeak создал README, сверяйтесь с командами из него.</p>
+          </div>
+          <div class="is-hidden" data-platform-run="Flutter">
+            <p>Для Flutter проверьте окружение и запустите приложение на нужном устройстве.</p>
+            <pre><code>flutter doctor</code></pre>
+            <pre><code>flutter run -d macos</code></pre>
+          </div>
+          <div class="is-hidden" data-platform-run="iOS">
+            <p>Для iOS откройте сгенерированный `.xcodeproj` или `.xcworkspace` в Xcode, выберите симулятор или устройство и нажмите Run.</p>
+          </div>
+        </section>
+
+        <section class="card" id="search">
+          <span class="step-label">Шаг 2 · Добавление фичи</span>
+          <h2>Добавляем Speed Slider через спеку</h2>
+          <p>Вставьте этот блок в конец вашей платформенной спеки:</p>
+          <pre><code data-feature-spec>## UI
+
+The bottom-right corner has a speed slider:
+- in the middle by default
+- moving the slider to the left slows the geese down
+- moving to the right speeds them up</code></pre>
+          <p>Снова запускаем build и проверяем приложение:</p>
+          <pre><code data-platform-build>codespeak build geese.spec.md</code></pre>
+          <p class="callout">Важно заметить: мы добавили фичу через описание поведения, затем запускаем build и проверяем результат.</p>
+        </section>
+
+        <section class="card" id="takeover">
+          <span class="step-label">Шаг 3 · Takeover, бонус</span>
+          <h2>Takeover готового проекта</h2>
+          <p>Если мы успеваем, ведущий показывает takeover на готовом проекте. Участникам необязательно выполнять этот шаг руками.</p>
+          <ul>
+            <li>Android: <a href="https://github.com/effective-dev-opensource/Effective-Office">effective-dev-opensource/Effective-Office</a></li>
+            <li>iOS: <a href="https://github.com/JohnUfo/SmartSpend">JohnUfo/SmartSpend</a></li>
+            <li>Flutter: <a href="https://github.com/a4studios04/SyncSpend">a4studios04/SyncSpend</a></li>
+            <li>CodeSpeak example: <a href="https://github.com/codespeak-dev/markitdown">codespeak-dev/markitdown</a></li>
+          </ul>
+          <p>Для Effective Office берем не весь репозиторий. Для демо лучше взять конкретную source-папку планшетной фичи:</p>
+          <pre><code>codespeak init</code></pre>
+          <pre><code>codespeak takeover clients/tablet/feature/main/src/commonMain/kotlin -o tablet-main.spec.md</code></pre>
+          <p class="callout">Takeover можно остановить вручную через `Ctrl+C`, если вы уже видите, что нужная спека создана, а дальше начался долгий этап анализа или формирования тестов. Для демо важнее получить intent-спеку, чем ждать весь pipeline.</p>
+          <p>Для демо takeover можно пропустить тестовую фазу:</p>
+          <pre><code>codespeak build tablet-main.spec.md --skip-tests</code></pre>
+          <p>Если takeover не успеваем, пропускаем этот блок и возвращаемся к Web-треку.</p>
+        </section>
+
+        <section class="card highlight" id="behind" data-workshop-only>
+          <span class="step-label">Если вы отстали</span>
+          <h2>Не пытайтесь героически догонять в терминале</h2>
+          <p class="lead">Переключитесь наверху на платформу `Web` и сделайте самую простую Web-версию.</p>
+          <p>Так вы останетесь в общем сценарии мастер-класса без тяжелой установки Android Studio, Xcode или Flutter SDK.</p>
+          <pre><code>cd workshop/web</code></pre>
+          <pre><code>codespeak init</code></pre>
+          <pre><code>codespeak build geese.spec.md</code></pre>
+          <p>Для Web после build откройте сгенерированный HTML-файл напрямую в браузере.</p>
+          <p class="callout">Не возвращайтесь к сломанной установке во время мастер-класса. Лучше закончить Web-трек, а мобильное окружение починить после.</p>
+        </section>
+
+        <section class="card" id="glossary">
+          <span class="step-label">Глоссарий</span>
+          <h2>Коротко о командах и режимах</h2>
+          <dl class="glossary-list">
+            <dt>`codespeak init`</dt>
+            <dd>Инициализирует проект для работы с CodeSpeak.</dd>
+            <dt>`codespeak build`</dt>
+            <dd>Берет спеку как описание intent и генерирует или обновляет код.</dd>
+            <dt>`codespeak change`</dt>
+            <dd>Исправляет баг реализации, когда спека написана правильно, но результат работает не так.</dd>
+            <dt>`codespeak takeover`</dt>
+            <dd>Смотрит на уже существующий код и восстанавливает по нему спеки. Полезно для legacy, demo-проектов и vibe-coded проектов.</dd>
+            <dt>Modular takeover</dt>
+            <dd>Takeover не всего репозитория, а конкретной папки, модуля или фичи. Это быстрее и предсказуемее для больших проектов.</dd>
+            <dt>Coverage flow</dt>
+            <dd>Отдельный сценарий, где CodeSpeak помогает добрать тестовое покрытие для уже существующего поведения.</dd>
+          </dl>
+        </section>
+
+        <section class="card problem" id="troubleshooting">
+          <span class="step-label">Известные проблемы</span>
+          <h2>Troubleshooting</h2>
+
+          <h3>`uv: command not found`</h3>
+          <p>Решения: перезапустить терминал или выполнить:</p>
+          <pre><code>source ~/.zshrc</code></pre>
+          <p>Проверить PATH:</p>
+          <pre><code>echo $PATH</code></pre>
+          <pre><code>which uv</code></pre>
+
+          <h3>`codespeak: command not found`</h3>
+          <pre><code>uv tool list</code></pre>
+          <pre><code>uv tool install codespeak-cli</code></pre>
+
+          <h3>Windows: WSL не установлен</h3>
+          <p>Не тратьте время во время мастер-класса. Переключитесь на Web-трек и поставьте WSL после мастер-класса.</p>
+
+          <h3>Логин не прошел</h3>
+          <pre><code>codespeak login</code></pre>
+          <p>или:</p>
+          <pre><code>CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak login</code></pre>
+
+          <h3>Ошибка 400 при вызове `codespeak`</h3>
+          <p>Если команда CodeSpeak завершилась с ошибкой 400, повторите ту же команду еще раз. На мастер-классе это нормальный временный сбой.</p>
+
+          <h3>`CODESPEAK_DIRECT_LOGIN` не подхватывается</h3>
+          <p>Иногда переменная окружения не сохраняется между командами. В этом случае добавляйте ее прямо перед каждой командой `codespeak`:</p>
+          <pre><code>CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak build &lt;SPEC_FILE&gt;</code></pre>
+          <pre><code>CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak change</code></pre>
+          <pre><code>CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak takeover &lt;PATH&gt; -o &lt;SPEC_FILE&gt;</code></pre>
+
+          <h3>`Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater`</h3>
+          <p>Это warning, не всегда ошибка. Если команда продолжила выполняться — ничего не делаем. Если команда упала — переключитесь на Web-трек.</p>
+
+          <h3>Build идет слишком долго</h3>
+          <p>Если build не завершился за несколько минут, не блокируйте мастер-класс. Переключитесь на Web-трек и продолжайте с простым сценарием.</p>
+
+          <h3>Спека правильная, но код сгенерировался нерабочим</h3>
+          <p>Не переписывайте спеку, чтобы обойти баг реализации. Если intent описан правильно, создайте code change request:</p>
+          <pre><code>codespeak change --new</code></pre>
+          <p>В созданном файле опишите, что именно работает не так: что нажали, что ожидали увидеть, что произошло фактически. Затем примените change request:</p>
+          <pre><code>codespeak change</code></pre>
+          <p>Короткий вариант для простого бага:</p>
+          <pre><code>codespeak change -m "Опишите, что работает не так"</code></pre>
+          <p>Если в проекте несколько спек, укажите нужную спеку первым аргументом:</p>
+          <pre><code>codespeak change path/to/spec.md -m "Опишите проблему"</code></pre>
+
+          <h3>Полезные официальные инструкции</h3>
+          <p>Если установка не чинится за пару минут, не разбирайте это во время мастер-класса. Откройте ссылки после занятия:</p>
+          <ul>
+            <li><a href="https://codespeak.dev/docs/getting-started/code-change-requests">Code Change Requests guide</a> — что делать, если спека верная, а код содержит баг.</li>
+            <li><a href="https://codespeak.dev/docs/reference/change">codespeak change reference</a> — полный синтаксис команды `codespeak change`.</li>
+            <li><a href="https://docs.astral.sh/uv/getting-started/installation/">uv installation guide</a> — установка, обновление и удаление `uv`.</li>
+            <li><a href="https://learn.microsoft.com/en-us/windows/wsl/install">Microsoft WSL install guide</a> — установка WSL и Ubuntu на Windows.</li>
+            <li><a href="https://learn.microsoft.com/en-us/windows/wsl/troubleshooting">Microsoft WSL troubleshooting</a> — типовые ошибки WSL и диагностика.</li>
+          </ul>
+        </section>
+
+        <section class="card secret-card is-hidden" id="secret" data-secret-section>
+          <span class="step-label">Секретный пункт</span>
+          <h2>Capturing prompts</h2>
+          <img class="secret-image" src="assets/secret-capturing-prompts.svg" alt="Capturing prompts">
+        </section>
+
+        <section class="card" id="final">
+          <span class="step-label">Финал</span>
+          <h2>Что попробовать дальше</h2>
+          <ul>
+            <li>Взять маленькую фичу, описать поведение в спеке и запустить `codespeak build`.</li>
+            <li>Посмотреть diff, проверить результат и повторить.</li>
+            <li>Для бага реализации использовать `codespeak change`.</li>
+            <li>Для готового или vibe-coded проекта попробовать `codespeak takeover`.</li>
+            <li>Для большого проекта попробовать modular takeover или coverage flow.</li>
+          </ul>
+          <p class="callout">Главный следующий шаг: маленький контролируемый эксперимент, а не большой проект целиком.</p>
+          <div class="goose-demo" data-goose-playground data-initial-geese="4" aria-label="Анимированные гуси"></div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <span>Инструкция: https://serik-effective.github.io/codespeak-workshop/</span>
+      <span class="footer-links">
+        <a href="https://t.me/beysenov_tech">t.me/beysenov_tech</a>
+        <a href="https://t.me/effectiveband">t.me/effectiveband</a>
+      </span>
+    </footer>
+
+    <script src="assets/geese.js"></script>
+    <script>
+      document.querySelectorAll("pre:not(.output-block)").forEach((pre) => {
+        const button = document.createElement("button");
+        button.className = "copy-button";
+        button.type = "button";
+        button.textContent = "copy";
+        button.addEventListener("click", async () => {
+          const code = pre.querySelector("code");
+          const text = (code ? code.textContent : pre.innerText).trim();
+          await navigator.clipboard.writeText(text);
+          button.textContent = "ok";
+          setTimeout(() => {
+            button.textContent = "copy";
+          }, 1200);
+        });
+        pre.appendChild(button);
+      });
+
+      const selection = {
+        target: localStorage.getItem("codespeak-workshop-target") || "Web",
+        os: localStorage.getItem("codespeak-workshop-os") || "",
+        mode: localStorage.getItem("codespeak-workshop-mode") || "workshop"
+      };
+      const platformConfig = {
+        Web: {
+          folder: "web",
+          spec: "geese.spec.md",
+          specHref: "workshop/web/geese.spec.md",
+          cdRoot: "cd codespeak-workshop/workshop/web"
+        },
+        Android: {
+          folder: "android",
+          spec: "geese.android.spec.md",
+          specHref: "workshop/android/geese.android.spec.md",
+          cdRoot: "cd codespeak-workshop/workshop/android"
+        },
+        Flutter: {
+          folder: "flutter",
+          spec: "geese.flutter.spec.md",
+          specHref: "workshop/flutter/geese.flutter.spec.md",
+          cdRoot: "cd codespeak-workshop/workshop/flutter"
+        },
+        iOS: {
+          folder: "ios",
+          spec: "geese.ios.spec.md",
+          specHref: "workshop/ios/geese.ios.spec.md",
+          cdRoot: "cd codespeak-workshop/workshop/ios"
+        }
+      };
+
+      function osMatches(value, os) {
+        return value.split(" ").includes(os);
+      }
+
+      function updateInstructionContext() {
+        document.querySelectorAll("[data-select]").forEach((select) => {
+          select.value = selection[select.dataset.select] || "";
+        });
+
+        const platform = platformConfig[selection.target] || platformConfig.Web;
+        document.querySelectorAll("[data-platform-files]").forEach((list) => {
+          const shouldShow = !selection.target || list.dataset.platformFiles === selection.target;
+          list.classList.toggle("is-hidden", !shouldShow);
+        });
+        document.querySelectorAll("[data-platform-cd]").forEach((code) => {
+          const isRepoCloneCommand = code.textContent.includes("codespeak-workshop");
+          code.textContent = isRepoCloneCommand ? platform.cdRoot : `cd workshop${platform.folder ? `/${platform.folder}` : ""}`;
+        });
+        document.querySelectorAll("[data-platform-build]").forEach((code) => {
+          code.textContent = `codespeak build ${platform.spec}`;
+        });
+        const fileNote = document.querySelector("[data-platform-file-note]");
+        if (fileNote) {
+          fileNote.textContent = selection.target === "Web"
+            ? `Если скачиваете руками, сохраните ${platform.spec} в папку проекта.`
+            : `Если скачиваете руками, сохраните AGENTS.md и ${platform.spec} в папку проекта.`;
+        }
+        document.querySelectorAll("[data-platform-run]").forEach((section) => {
+          section.classList.toggle("is-hidden", section.dataset.platformRun !== selection.target);
+        });
+
+        document.querySelectorAll("[data-mode-section]").forEach((section) => {
+          section.classList.toggle("is-hidden", section.dataset.modeSection !== selection.mode);
+        });
+
+        document.querySelectorAll("[data-workshop-only]").forEach((element) => {
+          element.classList.toggle("is-hidden", selection.mode !== "workshop");
+        });
+
+        document.querySelectorAll("[data-os-section]").forEach((section) => {
+          const shouldShow = !selection.os || osMatches(section.dataset.osSection, selection.os);
+          section.classList.toggle("is-hidden", !shouldShow);
+        });
+
+        document.querySelectorAll("[data-os-nav]").forEach((link) => {
+          const shouldShow = !selection.os || osMatches(link.dataset.osNav, selection.os);
+          link.classList.toggle("is-hidden", !shouldShow);
+        });
+
+      }
+
+      document.querySelectorAll("[data-select]").forEach((select) => {
+        select.addEventListener("change", () => {
+          const key = select.dataset.select;
+          selection[key] = select.value;
+          localStorage.setItem(`codespeak-workshop-${key}`, selection[key]);
+          updateInstructionContext();
+        });
+      });
+
+      let secretClicks = 0;
+      const secretTrigger = document.querySelector("[data-secret-trigger]");
+      const secretNav = document.querySelector("[data-secret-nav]");
+      const secretSection = document.querySelector("[data-secret-section]");
+      const revealSecret = () => {
+        secretNav.classList.remove("is-hidden");
+        secretSection.classList.remove("is-hidden");
+      };
+      secretTrigger.addEventListener("click", () => {
+        secretClicks += 1;
+        if (secretClicks >= 10) {
+          revealSecret();
+        }
+      });
+
+      updateInstructionContext();
+    </script>
+  </body>
+</html>

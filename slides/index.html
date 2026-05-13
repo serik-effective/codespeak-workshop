@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CodeSpeak Workshop — слайды</title>
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="../assets/styles.css">
+  </head>
+  <body class="slides-page">
+    <main class="deck" aria-live="polite">
+      <section class="slide active title-slide" data-step="Введение">
+        <header class="slide-header">
+          <span class="slide-step">Введение</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h1>CodeSpeak Workshop</h1>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 0">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 0 · Установка</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Установка</h2>
+          <pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh
+uv --version
+uv tool install codespeak-cli
+codespeak --version
+rm -f ~/.codespeak/token.json
+CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak login</code></pre>
+          <p class="subtitle">Windows — через WSL. Если 400 — повторите команду.</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Обо мне">
+        <header class="slide-header">
+          <span class="slide-step">Обо мне</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Серик Бейсенов</h2>
+          <ul>
+            <li>сооснователь и CTO Effective</li>
+            <li>AI энтузиаст</li>
+            <li>не разработчик CodeSpeak</li>
+          </ul>
+          <p class="subtitle social-links">t.me/beysenov_tech · t.me/effectiveband</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="План">
+        <header class="slide-header">
+          <span class="slide-step">План</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Что сегодня делаем</h2>
+          <ol>
+            <li>Установим CodeSpeak</li>
+            <li>Соберем простое приложение</li>
+            <li>Добавим фичу через спеку</li>
+            <li>Сгенерируем спеку на основе кода, если успеем</li>
+          </ol>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 0">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 0 · Установка</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Установка</h2>
+          <pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh
+uv --version
+uv tool install codespeak-cli
+codespeak --version
+rm -f ~/.codespeak/token.json
+CODESPEAK_DIRECT_LOGIN=workshop_2026_05_21 codespeak login</code></pre>
+          <p class="subtitle">Windows — через WSL. Если 400 — повторите команду.</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 0">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 0 · Файлы</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Берем стартовые файлы</h2>
+          <pre><code>git clone https://github.com/serik-effective/codespeak-workshop
+cd codespeak-workshop/workshop/&lt;PLATFORM&gt;</code></pre>
+          <p class="subtitle">Либо скачайте файлы из инструкции</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 1">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 1 · Первое приложение</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Первое приложение</h2>
+          <pre><code>codespeak init</code></pre>
+          <pre><code>codespeak build &lt;SPEC_FILE&gt;</code></pre>
+          <p class="subtitle">Результат: появились файлы приложения</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 2">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 2 · Меняем спеку</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Добавляем Speed Slider</h2>
+          <pre><code>UI
+The bottom-right corner has a speed slider.</code></pre>
+          <pre><code>codespeak build &lt;SPEC_FILE&gt;</code></pre>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 3">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 3 · Takeover</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Выбираем репозиторий</h2>
+          <ul>
+            <li>Android: Effective Office</li>
+            <li>iOS: SmartSpend</li>
+            <li>Flutter: SyncSpend</li>
+            <li>CodeSpeak example: markitdown</li>
+          </ul>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 3">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 3 · Clone</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Клонируем проект</h2>
+          <pre><code>git clone &lt;TAKEOVER_REPO_URL&gt;
+cd &lt;TAKEOVER_REPO_NAME&gt;</code></pre>
+          <pre><code>codespeak init</code></pre>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 3">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 3 · Takeover</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Генерируем спеку из кода</h2>
+          <pre><code>codespeak takeover clients/tablet/feature/main/src/commonMain/kotlin -o tablet-main.spec.md</code></pre>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Шаг 3">
+        <header class="slide-header">
+          <span class="slide-step">Шаг 3 · Build</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Меняем спеку и запускаем build</h2>
+          <pre><code>codespeak build tablet-main.spec.md --skip-tests</code></pre>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="План Б">
+        <header class="slide-header">
+          <span class="slide-step">Если что-то сломалось</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <p class="big-quote">Не геройствуем.<br>Переключаемся на Web.</p>
+          <pre><code>cd workshop/web
+codespeak init
+codespeak build geese.spec.md</code></pre>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide" data-step="Финал">
+        <header class="slide-header">
+          <span class="slide-step">Финал</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-main">
+          <h2>Что попробовать дальше</h2>
+          <ol>
+            <li>`change` — исправить реализацию</li>
+            <li>`takeover` — восстановить intent</li>
+            <li>modular takeover — брать проект частями</li>
+            <li>coverage — добрать тесты</li>
+          </ol>
+          <p class="subtitle">Начинать с маленького эксперимента</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+
+      <section class="slide thanks-slide" data-step="Спасибо">
+        <header class="slide-header">
+          <span class="slide-step">Спасибо</span>
+          <span class="slide-count"></span>
+        </header>
+        <div class="slide-goose-field" data-goose-playground data-initial-geese="8" aria-label="Анимированные гуси"></div>
+        <div class="slide-main">
+          <h1>Спасибо</h1>
+          <p class="subtitle">Инструкция останется доступна по ссылке</p>
+          <p class="subtitle social-links">t.me/beysenov_tech · t.me/effectiveband</p>
+        </div>
+        <footer class="slide-footer">
+          <InstructionLink></InstructionLink>
+        </footer>
+      </section>
+    </main>
+
+    <div class="slide-controls" aria-label="Навигация по слайдам">
+      <button type="button" data-prev aria-label="Предыдущий слайд">‹</button>
+      <button type="button" data-next aria-label="Следующий слайд">›</button>
+    </div>
+
+    <template id="instruction-link-template">
+      <div class="instruction-link">
+        <img src="../assets/qr-placeholder.svg" alt="QR-код инструкции">
+        <div>
+          <span>Инструкция:</span>
+          <strong>https://serik-effective.github.io/codespeak-workshop/</strong>
+        </div>
+      </div>
+    </template>
+
+    <script src="../assets/geese.js"></script>
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const template = document.querySelector("#instruction-link-template");
+
+      document.querySelectorAll("InstructionLink").forEach((node) => {
+        node.replaceWith(template.content.cloneNode(true));
+      });
+
+      document.querySelectorAll(".slide pre code").forEach((code) => {
+        const lines = code.textContent.split("\n").filter((line) => line.trim().length > 0);
+        code.innerHTML = "";
+        lines.forEach((line) => {
+          const row = document.createElement("span");
+          row.className = "copy-line";
+
+          const text = document.createElement("span");
+          text.className = "copy-line-text";
+          text.textContent = line;
+
+          const button = document.createElement("button");
+          button.className = "copy-line-button";
+          button.type = "button";
+          button.textContent = "copy";
+          button.setAttribute("aria-label", `Скопировать: ${line}`);
+          button.addEventListener("click", async (event) => {
+            event.stopPropagation();
+            await navigator.clipboard.writeText(line);
+            button.textContent = "ok";
+            setTimeout(() => {
+              button.textContent = "copy";
+            }, 1000);
+          });
+
+          row.addEventListener("click", async () => {
+            await navigator.clipboard.writeText(line);
+            button.textContent = "ok";
+            setTimeout(() => {
+              button.textContent = "copy";
+            }, 1000);
+          });
+
+          row.append(text, button);
+          code.append(row);
+        });
+      });
+
+      let index = Number(new URLSearchParams(location.search).get("slide") || 1) - 1;
+      index = Math.max(0, Math.min(index, slides.length - 1));
+
+      function showSlide(nextIndex) {
+        const previousIndex = index;
+        index = Math.max(0, Math.min(nextIndex, slides.length - 1));
+        const direction = index >= previousIndex ? "right" : "left";
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.remove("active", "leaving-left", "leaving-right", "enter-from-left", "enter-from-right");
+          if (slideIndex === previousIndex && previousIndex !== index) {
+            slide.classList.add(direction === "right" ? "leaving-left" : "leaving-right");
+          }
+          if (slideIndex === index) {
+            slide.classList.add("active", direction === "right" ? "enter-from-right" : "enter-from-left");
+            requestAnimationFrame(() => {
+              slide.classList.remove("enter-from-left", "enter-from-right");
+            });
+          }
+          slide.querySelector(".slide-count").textContent = `${slideIndex + 1} / ${slides.length}`;
+        });
+        const url = new URL(location.href);
+        url.searchParams.set("slide", String(index + 1));
+        history.replaceState(null, "", url);
+      }
+
+      document.querySelector("[data-prev]").addEventListener("click", () => showSlide(index - 1));
+      document.querySelector("[data-next]").addEventListener("click", () => showSlide(index + 1));
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === " ") {
+          event.preventDefault();
+          showSlide(index + 1);
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showSlide(index - 1);
+        }
+      });
+
+      showSlide(index);
+    </script>
+  </body>
+</html>
